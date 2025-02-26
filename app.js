@@ -8,6 +8,7 @@
 const express = require("express")
 const mongosse = require("mongoose")
 const app = express()
+app.use(express.json())
 
 
 //import role routes
