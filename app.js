@@ -15,6 +15,8 @@ app.use(express.json())
 
 const roleRoutes = require("./src/routes/RoleRoutes")
 app.use(roleRoutes)
+const userRoutes = require("./src/routes/UserRoutes")
+app.use(userRoutes)
 
 mongosse.connect("mongodb://127.0.0.1/25_node_internship").then(()=>{
     console.log("database connected...")
