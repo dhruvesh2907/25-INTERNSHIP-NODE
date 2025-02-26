@@ -12,7 +12,10 @@ const getAllRoles = async (req, res) => {
   });
 };
 const addRole = async (req, res) => {
-  
+  //req.body,req.params,req.headers,req.query
+  //console.log("request body....", req.body);
+  //insert into roles () values()
+  //database...
   const savedRole = await  roleModel.create(req.body)
 
   res.json({
