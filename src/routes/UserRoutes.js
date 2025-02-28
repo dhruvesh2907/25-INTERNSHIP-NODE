@@ -7,8 +7,8 @@ const userController = require("../controllers/UserController")
 //delete
 //get
 routes.get("/users",userController.getAllUsers)
-routes.post("/users",userController.adduser)
-routes.delete("/users/:id",userController.deleteUser)
-routes.get("/users/:id",userController.getUserById)
+routes.post("/user",userController.adduser)
+routes.delete("/user/:id",userController.deleteUser)
+routes.get("/user/:id",userController.getUserById)
 
 module.exports = routes 

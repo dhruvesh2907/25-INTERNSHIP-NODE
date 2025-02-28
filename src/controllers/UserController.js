@@ -18,7 +18,7 @@ const getAllUsers = async (req, res) => {
   const users = await userModel.find() //[{}]
 
   res.json({
-    message: "role fetched successfully",
+    message: "U sers fetched successfully",
     data:users
   });
 };
