@@ -14,7 +14,19 @@ const userSchema = new Schema({
     },
     status:{
         tpye:Boolean
+    },
+    roleId:{
+        type:Schema.Types.ObjectId, //batugasoijkadsasiksaj
+        ref:"roles"
+    },
+    password:{
+        type:String,
+    },
+    email:{
+        type:String,
+        unique:true
     }
+
 
 })
 
