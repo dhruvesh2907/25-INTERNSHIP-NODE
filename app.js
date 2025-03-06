@@ -19,6 +19,19 @@ const roleRoutes = require("./src/routes/RoleRoutes")
 app.use(roleRoutes)
 const userRoutes = require("./src/routes/UserRoutes")
 app.use(userRoutes)
+const stateRoutes = require("./src/routes/StateRoutes")
+app.use("/state",stateRoutes) //
+//http://localhost:3000/addState
+//http://localhost:3000/state/addState
+
+const cityRoutes = require("./src/routes/CityRoutes")
+app.use("/city",cityRoutes) //http://localhost:3000/city/addCity
+
+const areaRoutes = require("./src/routes/AreaRoutes")
+app.use("/area",areaRoutes) //http://localhost:3000/area/add
+
+const hordingRoutes = require("./src/routes/HordingRoutes")
+app.use("/hording",hordingRoutes) //http://localhost:3000/hording/add
 
 mongosse.connect("mongodb://127.0.0.1/25_node_internship").then(()=>{
     console.log("database connected...")
