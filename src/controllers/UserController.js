@@ -1,30 +1,8 @@
-const userModel = require("../models/UserModel")
+const userModel = require("../models/UserModel");
 const bcrypt = require("bcrypt");
-//addUser
-//getUser
-//deleteUser
-//getUserById
-const signup = async (req, res) => {
-  //try catch if else...
-  try {
-    //password encrupt..
-    const salt = bcrypt.genSaltSync(10);
-    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
-    req.body.password = hashedPassword;
-    const createdUser = await userModel.create(req.body);
-    res.status(201).json({
-      message: "user created..",
-      data: createdUser,
-    });
-  } catch (err) {
-    console.log(err)
-    res.status(500).json({
-      message: "error",
-      data: err,
-    });
-  }
-};
-const login = async (req, res) => {
+const mailUtil = require("../utils/MailUtil")
+
+const Login = async (req, res) => {
   //req.body email and password: password
 
   //password -->plain -->db -->encrypted
@@ -37,7 +15,7 @@ const login = async (req, res) => {
   //normal passwoed compare -->
 
   //const foundUserFromEmail = userModel.findOne({email:req.body.email})
-  const foundUserFromEmail = await userModel.findOne({ email: email }).populate("roleId");
+  const foundUserFromEmail = await userModel.findOne({ email: email }).populate("roleId")
   console.log(foundUserFromEmail);
   //check if email is exist or not//
   if (foundUserFromEmail != null) {
@@ -63,48 +41,69 @@ const login = async (req, res) => {
   }
 };
 
-const adduser = async (req, res) => {
-  
-  const savedUser = await  userModel.create(req.body)
+const Signup = async (req, res) => {
+  //try catch if else...
+  try {
+    //password encrupt..
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+    req.body.password = hashedPassword;
+    const createdUser = await userModel.create(req.body);
 
+    //send mail to user...
+    //const mailResponse = await mailUtil.sendingMail(createdUser.email,"welcome to eadvertisement","this is welcome mail")
+    await mailUtil.sendingMail(createdUser.email,"welcome to Promotix","Thankyou for connecting  ")
+
+    res.status(201).json({
+      message: "user created..",
+      data: createdUser,
+    });
+  } catch (err) {
+    console.log(err)
+    res.status(500).json({
+      message: "error",
+      data: err,
+    });
+  }
+};
+
+const addUser = async (req, res) => {
+  //req.body...
+  const savedUser = await userModel.create(req.body);
   res.json({
-    message:"user created...",
-    data:savedUser
+    message: "User Saved Successfully",
+    data: savedUser,
   });
 };
 const getAllUsers = async (req, res) => {
-
-  const users = await userModel.find() //[{}]
-
+  const users = await userModel.find().populate("roleId");
   res.json({
-    message: "U sers fetched successfully",
-    data:users
+    message: "User fetched successfully..",
+    data: users,
   });
 };
-const deleteUser = async(req,res)=>{
 
-
-  const deletedUser = await userModel.findByIdAndDelete(req.params.id)
-
+const getUserById = async (req, res) => {
+  const foundUser = await userModel.findById(req.params.id);
   res.json({
-    message:"User deleted successfully..",
-    data:deletedUser
-  })
+    message: "user fetched successfully..",
+    data: foundUser,
+  });
+};
 
-
-
-}
-
-const getUserById = async (req,res)=>{
-
-const foundUser = await userModel.findById(req.params.id)
-res.json({
-  message:"User fatched..",
-  data:foundUser
-})
-
-}
+const deleteUserById = async (req, res) => {
+  const deletedUser = await userModel.findByIdAndDelete(req.params.id);
+  res.json({
+    message: "user deleted Successfully..",
+    data: deletedUser,
+  });
+};
 
 module.exports = {
-    adduser,getAllUsers,deleteUser,getUserById,signup,login
-}
+  addUser,
+  getAllUsers,
+  getUserById,
+  deleteUserById,
+  Signup,
+  Login,
+};
