@@ -16,7 +16,7 @@ const sendingMail = async(to,subject,text) => {
         from: 'mehtadhruvesh2907@gmail.com',
         to: to,
         subject: subject,
-        // text: textz
+    
         html :text
     }
 

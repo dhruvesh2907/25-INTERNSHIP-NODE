@@ -1,6 +1,5 @@
 const cloundinary = require("cloudinary").v2;
 
-
 const uploadFileToCloudinary = async (file) => {
 
     //conif
