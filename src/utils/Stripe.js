@@ -1,7 +1,7 @@
 
 const express = require("express");
 const router = express.Router();
-const stripe = require("stripe")("sk_test_51R9eMUGggoLgE1WDKJ5sVvIwwwrxFLlhkg4KMBnhAp3eSNzIYjKlZej2iRmQNeA0f6DI5bRVRDae3tZRHBnvM50T00EloKciFZ"); // replace with your secret key
+const stripe = require("stripe")(""); // replace with your secret key
 
 router.post("/create-checkout-session", async (req, res) => {
     const { hoardingId, hoardingDimension, hourlyRate } = req.body;
