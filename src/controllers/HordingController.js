@@ -30,6 +30,33 @@ const addHording = async (req, res) => {
   }
 };
 
+const deleteHordingById = async (req, res) => {
+  try {
+    const deletedHording = await hordingModel.findByIdAndDelete(req.params.id);
+    
+    if (!deletedHording) {
+      return res.status(404).json({ 
+        success: false,
+        message: "Hording not found"
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Hording deleted successfully",
+      data: deletedHording
+    });
+
+  } catch (err) {
+    console.error(`Delete Error (ID: ${req.params.id}):`, err);
+    res.status(500).json({
+      success: false,
+      message: "Server error during deletion",
+      error: err.message
+    });
+  }
+};
+
 const getAllHordings = async (req, res) => {
   try {
     const hordings = await hordingModel
@@ -151,11 +178,14 @@ const getHordingById= async(req,res)=>{
   }
 }
 
+
 module.exports = {
   addHording,
   getAllHordings,
   addHordingWithFile,
   getAllHordingsByUserId,
   updateHording,
-  getHordingById
+  getHordingById,
+  deleteHordingById,
+
 };
