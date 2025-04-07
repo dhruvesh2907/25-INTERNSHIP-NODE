@@ -7,13 +7,13 @@ const sendingMail = async(to,subject,text) => {
     const transporter = mailer.createTransport({
         service: 'gmail',
         auth:{
-            user:"mehtadhruvesh2907@gmail.com",
-            pass:"waws xrag rwco bmnx"
+            user:"",
+            pass:""
         }
     })
 
     const mailOptions = {
-        from: 'mehtadhruvesh2907@gmail.com',
+        from: '',
         to: to,
         subject: subject,
     
